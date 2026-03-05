@@ -28,9 +28,9 @@ const subjectImage = {
     "Physics First Paper": "phy1.png",
     "Physics Second Paper": "phy2.png",
     "Chemistry First Paper": "chem1.png",
-    "Chemistry Second Paper": "chem1.png",
+    "Chemistry Second Paper": "chem2.png",
     "Mathematics First Paper": "math1.png",
-    "Mathematics Second Paper": "math1.png"
+    "Mathematics Second Paper": "math2.png"
 };
 
 // Explicitly attach to window object for global access
@@ -41,4 +41,5 @@ window.subjectImage = subjectImage;
 // Optional: Log to confirm loading
 console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
+
 console.log('Extra Materials:', window.extraMaterials.length);
