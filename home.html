@@ -28,8 +28,9 @@
         }
 
         .app {
-            width: 360px;
-            height: 740px;
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
             background: #0a1235;
             color: #f0ecdd;
             overflow-y: auto;
@@ -40,6 +41,19 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: #5e6f9f #1e264a;
+        }
+
+        /* Loading skeleton animation */
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #132049 25%, #1e2a55 50%, #132049 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
         }
 
         .view {
@@ -55,9 +69,6 @@
         .view.fade-out {
             opacity: 0;
             pointer-events: none;
-        }
-        .app {
-            position: relative;
         }
 
         .header {
@@ -145,6 +156,13 @@
             border-radius: 50%;
             background: #1e2a55;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #2a3a6e;
+        }
+        .back-btn:active {
+            transform: scale(0.94);
         }
         .detail-search {
             flex: 1;
@@ -153,7 +171,7 @@
         .section-title {
             font-size: 18px;
             font-weight: 600;
-            padding: 16px 16px 30px;
+            padding: 16px 16px 16px;
             color: #f2e5cc;
             display: flex;
             align-items: center;
@@ -163,6 +181,26 @@
         .section-title i {
             color: #ffe8b5;
             font-size: 18px;
+        }
+
+        /* Empty state styling */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9aa9c9;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #3f4c8a;
+        }
+        .empty-state p {
+            font-size: 16px;
+        }
+        .empty-state small {
+            font-size: 14px;
+            opacity: 0.7;
         }
 
         .subject-grid {
@@ -181,6 +219,7 @@
             transition: transform 0.1s ease, opacity 0.2s;
         }
         .subject-card:active { transform: scale(0.98); background: #1b275a; }
+        .subject-card.hidden { display: none; }
         .thumb-square {
             aspect-ratio: 1 / 1;
             width: 100%;
@@ -232,6 +271,7 @@
             opacity: 0.2;
             pointer-events: none;
         }
+        .video-row.hidden { display: none; }
         .video-thumb {
             width: 120px;
             aspect-ratio: 16/9;
@@ -239,11 +279,23 @@
             background: #16245e;
             overflow: hidden;
             flex-shrink: 0;
+            position: relative;
         }
         .video-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .video-duration {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
         }
         .video-details {
             flex: 1;
@@ -269,7 +321,6 @@
             color: #e6d29b;
         }
 
-        /* new style for extra material PDF rows */
         .pdf-row {
             display: flex;
             gap: 12px;
@@ -285,6 +336,7 @@
             background: #1b275a;
             transform: scale(0.99);
         }
+        .pdf-row.hidden { display: none; }
         .pdf-icon-big {
             font-size: 32px;
             color: #f54242;
@@ -318,10 +370,12 @@
             color: #ffdd9e;
         }
 
+        /* Modern YouTube player container */
         .player-container {
             width: 100%;
             background: #000;
             aspect-ratio: 16 / 9;
+            position: relative;
         }
         .player-container iframe {
             width: 100%;
@@ -374,6 +428,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.6);
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
+            transition: transform 0.1s, background 0.2s;
         }
         .pdf-btn i { color: #b12b2b; font-size: 18px; }
         .pdf-btn:active { background: #f5f0ff; transform: scale(0.97);}
@@ -402,64 +457,137 @@
         .copy-toast.show {
             opacity: 1;
         }
+
+        /* Recent videos section */
+        .recent-videos {
+            padding: 0 16px 20px;
+        }
+        .recent-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffeac2;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .recent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        .recent-item {
+            cursor: pointer;
+        }
+        .recent-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #132049;
+        }
+        .recent-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .recent-item-title {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #acbbeb;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Progress bar for videos */
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: #293e7c;
+            margin-top: 8px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #ffdd9e;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Focus styles for accessibility */
+        .back-btn:focus-visible,
+        .subject-card:focus-visible,
+        .video-row:focus-visible,
+        .pdf-btn:focus-visible,
+        .search-box:focus-visible {
+            outline: 2px solid #ffdd9e;
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
 <div class="app" id="app">
     <div class="copy-toast" id="copyToast">Student ID copied</div>
 
-    <!-- HOME VIEW (now with Extra Materials instead of All lectures) -->
+    <!-- HOME VIEW -->
     <div id="homeView" class="view">
         <div class="header">
             <div class="logo-area">
                 <span class="logo-text">Studygram</span>
             </div>
             <div class="search-container">
-                <input type="text" class="search-box" id="globalSearch" placeholder="Search">
+                <input type="text" class="search-box" id="globalSearch" placeholder="Search subjects or materials" aria-label="Search subjects and materials">
             </div>
         </div>
 
-        <div class="section-title"><i class="fas fa-book-open"></i> Subjects</div>
+        <!-- Recent videos section (new) -->
+        <div id="recentVideosSection" class="recent-videos"></div>
+
+        <div class="section-title"><i class="fas fa-book-open" aria-hidden="true"></i> Subjects</div>
         <div class="subject-grid" id="subjectGrid"></div>
 
         <div class="section-divider"></div>
 
-        <!-- NEW: Extra Materials section (PDF only) -->
-        <div class="section-title"><i class="fas fa-file-pdf"></i> Extra Materials</div>
+        <div class="section-title"><i class="fas fa-file-pdf" aria-hidden="true"></i> Extra Materials</div>
         <div class="video-list" id="extraMaterialsList"></div>
-        <!-- using video-list class for consistent padding, but content will be pdf-row -->
     </div>
 
-    <!-- SUBJECT DETAIL VIEW (unchanged) -->
+    <!-- SUBJECT DETAIL VIEW -->
     <div id="subjectDetailView" class="view hidden">
         <div class="detail-header">
-            <div class="back-btn" id="backFromSubject"><i class="fas fa-arrow-left"></i></div>
+            <div class="back-btn" id="backFromSubject" aria-label="Go back"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
             <div class="search-container detail-search">
-                <input type="text" class="search-box" id="subjectSearch" placeholder="Filter in this subject">
+                <input type="text" class="search-box" id="subjectSearch" placeholder="Filter videos in this subject" aria-label="Filter videos">
             </div>
         </div>
-        <div class="section-title"><i class="fas fa-layer-group"></i> <span id="subjectDetailTitle">Physics First Paper</span></div>
+        <div class="section-title"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="subjectDetailTitle">Physics First Paper</span></div>
         <div class="video-list" id="subjectVideoList"></div>
     </div>
 
-    <!-- PLAYER VIEW (unchanged) -->
+    <!-- PLAYER VIEW -->
     <div id="playerView" class="view hidden">
         <div class="detail-header">
-            <div class="back-btn" id="backFromPlayer"><i class="fas fa-arrow-left"></i></div>
-            <div class="search-container detail-search"></div>
+            <div class="back-btn" id="backFromPlayer" aria-label="Go back"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
+            <div class="section-title" style="padding: 0; margin: 0;"><i class="fas fa-play-circle" aria-hidden="true"></i> Now Playing</div>
         </div>
         <div class="player-container" id="youtubePlayer"></div>
         <div class="video-info-section">
             <div class="video-info-title" id="playerVideoTitle">Video title</div>
             <div class="meta-bar">
                 <div class="channel-like">
-                    <span class="subject-badge" id="playerSubjectName"><i class="fas fa-tag"></i> Subject</span>
+                    <span class="subject-badge" id="playerSubjectName"><i class="fas fa-tag" aria-hidden="true"></i> Subject</span>
                 </div>
-                <button class="pdf-btn" id="pdfDriveBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button class="pdf-btn" id="pdfDriveBtn" aria-label="Open PDF material"><i class="fas fa-file-pdf" aria-hidden="true"></i> PDF</button>
+            </div>
+            <!-- Progress bar (new) -->
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
             </div>
         </div>
 
-        <div class="section-title" style="padding-top: 8px;"><i class="fas fa-list"></i> More from this subject</div>
+        <div class="section-title" style="padding-top: 8px;"><i class="fas fa-list" aria-hidden="true"></i> More from this subject</div>
         <div class="video-list" id="moreVideosList" style="padding-bottom: 20px;"></div>
     </div>
 </div>
@@ -473,8 +601,60 @@
     const extraMaterials = window.extraMaterials || [];
     const subjectImage = window.subjectImage || {};
 
+    // Add mock durations if not present in data
+    lectures.forEach(v => {
+        if (!v.duration) {
+            v.duration = Math.floor(Math.random() * 20 + 5) + ':' + Math.floor(Math.random() * 60).toString().padStart(2, '0');
+        }
+    });
+
+    // Recent videos tracking
+    const RECENT_KEY = 'studygram_recent';
+    const PROGRESS_KEY = 'studygram_progress';
+
+    function getRecentVideos() {
+        try {
+            return JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+        } catch {
+            return [];
+        }
+    }
+
+    function addToRecent(video) {
+        const recent = getRecentVideos();
+        const filtered = recent.filter(v => v.videoid !== video.videoid);
+        filtered.unshift({
+            videoid: video.videoid,
+            title: video.videotitle,
+            subject: video.subject,
+            pdf: video.videopdf,
+            timestamp: Date.now()
+        });
+        localStorage.setItem(RECENT_KEY, JSON.stringify(filtered.slice(0, 10))); // Keep last 10
+    }
+
+    function saveProgress(videoid, percent) {
+        const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+        progress[videoid] = percent;
+        localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    }
+
+    function getProgress(videoid) {
+        const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+        return progress[videoid] || 0;
+    }
+
     function normalizeText(text) {
         return text.toLowerCase().normalize("NFC").trim();
+    }
+
+    // Debounce function for search
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
     }
 
     // ---------- navigation stack + smooth fade ----------
@@ -484,6 +664,7 @@
     const views = [homeView, subjectDetailView, playerView];
 
     let navStack = [];
+    let currentPlayerId = null; // Track current video to stop on back
 
     function pushState(state) {
         navStack.push(state);
@@ -497,6 +678,13 @@
         return navStack.length ? navStack[navStack.length-1] : null;
     }
 
+    function stopVideo() {
+        const player = document.getElementById('youtubePlayer');
+        if (player) {
+            player.innerHTML = ''; // Clear iframe to stop video
+        }
+    }
+
     function switchView(targetView, onAfterShow) {
         const currentView = views.find(v => !v.classList.contains('hidden') && !v.classList.contains('fade-out'));
         if (!currentView) {
@@ -507,6 +695,11 @@
         }
         if (currentView === targetView) return;
 
+        // If leaving player view, stop the video
+        if (currentView === playerView) {
+            stopVideo();
+        }
+
         currentView.classList.add('fade-out');
         setTimeout(() => {
             currentView.classList.add('hidden');
@@ -514,6 +707,64 @@
             targetView.classList.remove('hidden', 'fade-out');
             if (onAfterShow) onAfterShow();
         }, 250);
+    }
+
+    // Show toast message
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('copyToast');
+        toast.textContent = message;
+        toast.style.background = isError ? '#5e2a2a' : '#1e2d5e';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // Render empty state
+    function renderEmptyState(container, message, icon = 'fa-inbox', isSmall = false) {
+        container.innerHTML = `<div class="empty-state">
+            <i class="fas ${icon}" aria-hidden="true"></i>
+            <p>${message}</p>
+            ${isSmall ? '<small>Check back later</small>' : ''}
+        </div>`;
+    }
+
+    // Render recent videos
+    function renderRecentVideos() {
+        const recent = getRecentVideos();
+        const section = document.getElementById('recentVideosSection');
+        
+        if (recent.length === 0) {
+            section.innerHTML = '';
+            return;
+        }
+
+        section.innerHTML = `
+            <div class="recent-title">
+                <i class="fas fa-history" aria-hidden="true"></i> Continue Watching
+            </div>
+            <div class="recent-grid">
+                ${recent.map(v => `
+                    <div class="recent-item" data-videoid="${v.videoid}" data-subject="${v.subject}" data-title="${v.title}" data-pdf="${v.pdf}">
+                        <div class="recent-thumb">
+                            <img src="https://img.youtube.com/vi/${v.videoid}/mqdefault.jpg" loading="lazy" alt="${v.title}">
+                        </div>
+                        <div class="recent-item-title">${v.title}</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${getProgress(v.videoid)}%"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        section.querySelectorAll('.recent-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const videoid = item.dataset.videoid;
+                const subject = item.dataset.subject;
+                const title = item.dataset.title;
+                const pdf = item.dataset.pdf;
+                showPlayer(videoid, subject, title, pdf);
+            });
+        });
     }
 
     // ----- Render helpers -----
@@ -526,17 +777,32 @@
     function renderSubjects() {
         const subjects = getSubjectsWithCounts();
         const grid = document.getElementById('subjectGrid');
+        
+        if (subjects.length === 0) {
+            renderEmptyState(grid, 'No subjects available', 'fa-book', true);
+            return;
+        }
+
         grid.innerHTML = subjects.map(s => {
             const imgFile = subjectImage[s.name] || 'https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject';
-            return `<div class="subject-card" data-subject="${s.name}">
+            return `<div class="subject-card" data-subject="${s.name}" tabindex="0" role="button" aria-label="${s.name} subject with ${s.count} videos">
                 <div class="thumb-square"><img src="${imgFile}" alt="${s.name}" onerror="this.src='https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject'"></div>
-                <div class="card-info"><div class="subject-name">${s.name}</div><div class="class-count"><i class="fas fa-play-circle"></i> ${s.count} classes</div></div>
+                <div class="card-info"><div class="subject-name">${s.name}</div><div class="class-count"><i class="fas fa-play-circle" aria-hidden="true"></i> ${s.count} classes</div></div>
             </div>`;
         }).join('');
+        
         document.querySelectorAll('.subject-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const subject = card.dataset.subject;
                 showSubjectDetail(subject);
+            });
+            
+            // Keyboard support
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
             });
         });
     }
@@ -544,14 +810,27 @@
     function renderVideoItems(videoArray, containerId, limit = 20) {
         const container = document.getElementById(containerId);
         if (!container) return;
+        
+        if (videoArray.length === 0) {
+            renderEmptyState(container, 'No videos found', 'fa-video', true);
+            return;
+        }
+
         const take = videoArray.slice(0, limit);
         container.innerHTML = take.map(v => {
             const thumb = `https://img.youtube.com/vi/${v.videoid}/mqdefault.jpg`;
-            return `<div class="video-row" data-videoid="${v.videoid}" data-subject="${v.subject}" data-title="${v.videotitle}" data-pdf="${v.videopdf}">
-                <div class="video-thumb"><img src="${thumb}" loading="lazy"></div>
-                <div class="video-details"><div class="video-title">${v.videotitle}</div><div class="video-subject"><i class="fas fa-folder-open"></i> ${v.subject}</div></div>
+            return `<div class="video-row" data-videoid="${v.videoid}" data-subject="${v.subject}" data-title="${v.videotitle}" data-pdf="${v.videopdf}" tabindex="0" role="button" aria-label="Play ${v.videotitle}">
+                <div class="video-thumb">
+                    <img src="${thumb}" loading="lazy" alt="${v.videotitle}">
+                    <span class="video-duration">${v.duration || '10:00'}</span>
+                </div>
+                <div class="video-details">
+                    <div class="video-title">${v.videotitle}</div>
+                    <div class="video-subject"><i class="fas fa-folder-open" aria-hidden="true"></i> ${v.subject}</div>
+                </div>
             </div>`;
         }).join('');
+        
         container.querySelectorAll('.video-row').forEach(row => {
             row.addEventListener('click', () => {
                 const videoid = row.dataset.videoid;
@@ -560,25 +839,47 @@
                 const pdf = row.dataset.pdf;
                 showPlayer(videoid, subject, title, pdf);
             });
+            
+            row.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    row.click();
+                }
+            });
         });
     }
 
     function renderExtraMaterials() {
         const container = document.getElementById('extraMaterialsList');
         if (!container) return;
+        
+        if (extraMaterials.length === 0) {
+            renderEmptyState(container, 'No extra materials available', 'fa-file-pdf', true);
+            return;
+        }
+
         container.innerHTML = extraMaterials.map(item => {
-            return `<div class="pdf-row" data-pdf-url="${item.pdfUrl}" data-title="${item.title}" data-subject="${item.subject}">
-                <div class="pdf-icon-big"><i class="fas fa-file-pdf"></i></div>
+            return `<div class="pdf-row" data-pdf-url="${item.pdfUrl}" data-title="${item.title}" data-subject="${item.subject}" tabindex="0" role="button" aria-label="Open PDF: ${item.title}">
+                <div class="pdf-icon-big"><i class="fas fa-file-pdf" aria-hidden="true"></i></div>
                 <div class="pdf-info">
                     <div class="pdf-title">${item.title}</div>
-                    <div class="pdf-meta"><i class="fas fa-folder"></i> ${item.subject}</div>
+                    <div class="pdf-meta"><i class="fas fa-folder" aria-hidden="true"></i> ${item.subject}</div>
                 </div>
             </div>`;
         }).join('');
+        
         container.querySelectorAll('.pdf-row').forEach(row => {
             row.addEventListener('click', () => {
                 const pdfUrl = row.dataset.pdfUrl;
-                window.open(pdfUrl, '_blank');
+                // Open in same tab with _self
+                window.location.href = pdfUrl;
+            });
+            
+            row.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    row.click();
+                }
             });
         });
     }
@@ -605,6 +906,7 @@
         switchView(target, () => {
             renderSubjects();
             renderExtraMaterials();
+            renderRecentVideos(); // Add recent videos
             target.scrollTop = 0;
         });
         pushState({ view: 'home' });
@@ -616,16 +918,34 @@
             document.getElementById('subjectDetailTitle').innerText = subject;
             const filtered = lectures.filter(v => v.subject === subject);
             renderVideoItems(filtered, 'subjectVideoList', 30);
-            const oldInput = document.getElementById('subjectSearch');
-            const newInput = oldInput.cloneNode(true);
-            oldInput.parentNode.replaceChild(newInput, oldInput);
-            newInput.addEventListener('input', function() {
-                const q = normalizeText(this.value);
-                document.querySelectorAll('#subjectVideoList .video-row').forEach(r => {
+            
+            // Setup search with debounce
+            const searchInput = document.getElementById('subjectSearch');
+            const debouncedFilter = debounce(function(value) {
+                const q = normalizeText(value);
+                const rows = document.querySelectorAll('#subjectVideoList .video-row');
+                let visibleCount = 0;
+                
+                rows.forEach(r => {
                     const t = normalizeText(r.dataset.title || '');
-                    r.classList.toggle('hidden', !t.includes(q));
+                    const shouldShow = !q || t.includes(q);
+                    r.classList.toggle('hidden', !shouldShow);
+                    if (shouldShow) visibleCount++;
                 });
-            });
+
+                // Show empty state if no results
+                const container = document.getElementById('subjectVideoList');
+                const existingEmpty = container.querySelector('.empty-state');
+                if (visibleCount === 0 && !existingEmpty) {
+                    renderEmptyState(container, `No videos match "${value}"`, 'fa-search', true);
+                } else if (existingEmpty && visibleCount > 0) {
+                    existingEmpty.remove();
+                }
+            }, 300);
+
+            searchInput.value = ''; // Clear previous search
+            searchInput.addEventListener('input', (e) => debouncedFilter(e.target.value));
+            
             target.scrollTop = 0;
         });
         pushState({ view: 'subject', subject: subject });
@@ -633,15 +953,49 @@
 
     function showPlayer(videoid, subject, title, pdfUrl) {
         const target = playerView;
+        
+        // Find the full video object to add to recent
+        const videoObj = lectures.find(v => v.videoid === videoid);
+        if (videoObj) {
+            addToRecent(videoObj);
+        }
+
         switchView(target, () => {
-            document.getElementById('youtubePlayer').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoid}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            // Use modern YouTube embed with enhanced privacy and new player
+            document.getElementById('youtubePlayer').innerHTML = `
+                <iframe src="https://www.youtube-nocookie.com/embed/${videoid}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1" 
+                        allow="autoplay; encrypted-media; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>`;
+            
             document.getElementById('playerVideoTitle').innerText = title;
-            document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag"></i> ${subject}`;
-            document.getElementById('pdfDriveBtn').onclick = () => window.open(pdfUrl, '_blank');
+            document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag" aria-hidden="true"></i> ${subject}`;
+            
+            // Load saved progress
+            const savedProgress = getProgress(videoid);
+            document.getElementById('progressFill').style.width = savedProgress + '%';
+            
+            // Set PDF button to open in same tab
+            document.getElementById('pdfDriveBtn').onclick = () => {
+                window.location.href = pdfUrl; // _self behavior
+            };
 
             const more = lectures.filter(v => v.subject === subject && v.videoid !== videoid);
             renderVideoItems(more, 'moreVideosList', 10);
             setupFadeToggle('moreVideosList');
+            
+            // Simulate progress updates (in real app, you'd use YouTube API)
+            let progress = savedProgress;
+            const interval = setInterval(() => {
+                if (getCurrentState()?.view === 'player' && progress < 90) {
+                    progress += 1;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    saveProgress(videoid, progress);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 3000); // Update every 3 seconds
+
             target.scrollTop = 0;
         });
         pushState({ view: 'player', subject, videoid, title, pdf: pdfUrl });
@@ -658,29 +1012,38 @@
             switchView(homeView, () => {
                 renderSubjects();
                 renderExtraMaterials();
+                renderRecentVideos();
             });
         } else if (prev.view === 'subject') {
             switchView(subjectDetailView, () => {
                 document.getElementById('subjectDetailTitle').innerText = prev.subject;
                 const filtered = lectures.filter(v => v.subject === prev.subject);
                 renderVideoItems(filtered, 'subjectVideoList', 30);
-                const old = document.getElementById('subjectSearch');
-                const newInp = old.cloneNode(true);
-                old.parentNode.replaceChild(newInp, old);
-                newInp.addEventListener('input', function(e) {
-                    const q = normalizeText(e.target.value);
+                
+                const searchInput = document.getElementById('subjectSearch');
+                const debouncedFilter = debounce(function(value) {
+                    const q = normalizeText(value);
                     document.querySelectorAll('#subjectVideoList .video-row').forEach(r => {
                         const t = normalizeText(r.dataset.title || '');
                         r.classList.toggle('hidden', !t.includes(q));
                     });
-                });
+                }, 300);
+
+                searchInput.value = '';
+                searchInput.addEventListener('input', (e) => debouncedFilter(e.target.value));
             });
         } else if (prev.view === 'player') {
             switchView(playerView, () => {
-                document.getElementById('youtubePlayer').innerHTML = `<iframe src="https://www.youtube.com/embed/${prev.videoid}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                // Video will be stopped automatically by switchView
+                document.getElementById('youtubePlayer').innerHTML = `
+                    <iframe src="https://www.youtube-nocookie.com/embed/${prev.videoid}?autoplay=1&rel=0&modestbranding=1" 
+                            allow="autoplay; encrypted-media; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>`;
                 document.getElementById('playerVideoTitle').innerText = prev.title;
-                document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag"></i> ${prev.subject}`;
-                document.getElementById('pdfDriveBtn').onclick = () => window.open(prev.pdf, '_blank');
+                document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag" aria-hidden="true"></i> ${prev.subject}`;
+                document.getElementById('pdfDriveBtn').onclick = () => window.location.href = prev.pdf;
+                
                 const more = lectures.filter(v => v.subject === prev.subject && v.videoid !== prev.videoid);
                 renderVideoItems(more, 'moreVideosList', 10);
                 setupFadeToggle('moreVideosList');
@@ -688,64 +1051,97 @@
         }
     }
 
+    // ----- Global error handler -----
+    window.addEventListener('error', (event) => {
+        console.error('Global error:', event.error);
+        showToast('Something went wrong. Please try again.', true);
+    });
+
+    // Block YouTube links but allow _self navigation
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (link && link.href && link.href.includes('youtube.com') && !link.href.includes('youtube-nocookie.com')) {
+            e.preventDefault();
+            e.stopPropagation();
+            showToast('YouTube website is blocked. Please use the embedded player only.');
+            return false;
+        }
+    }, true);
+
+    // Override window.open but allow same-tab navigation
+    const originalWindowOpen = window.open;
+    window.open = function(url, name, features) {
+        if (url && url.includes('youtube.com') && !url.includes('youtube-nocookie.com')) {
+            showToast('YouTube website is blocked. Please use the embedded player only.');
+            return null;
+        }
+        // Force _self for PDFs and internal links
+        if (url && !url.includes('youtube.com')) {
+            window.location.href = url;
+            return null;
+        }
+        return originalWindowOpen.call(this, url, name, features);
+    };
+
+    // Initialize
     document.getElementById('backFromSubject').addEventListener('click', handleBack);
     document.getElementById('backFromPlayer').addEventListener('click', handleBack);
 
-    // ----- global search -----
-    document.getElementById('globalSearch').addEventListener('input', function() {
-        const q = normalizeText(this.value);
+    // Global search with debounce
+    const globalSearch = document.getElementById('globalSearch');
+    const debouncedGlobalSearch = debounce(function(value) {
+        const q = normalizeText(value);
+        let anyVisible = false;
+
+        // Filter subjects
         document.querySelectorAll('#subjectGrid .subject-card').forEach(card => {
             const subj = card.dataset.subject ? normalizeText(card.dataset.subject) : '';
-            card.classList.toggle('hidden', !subj.includes(q));
+            const visible = !q || subj.includes(q);
+            card.classList.toggle('hidden', !visible);
+            if (visible) anyVisible = true;
         });
+
+        // Filter PDFs
         document.querySelectorAll('#extraMaterialsList .pdf-row').forEach(row => {
             const title = row.dataset.title ? normalizeText(row.dataset.title) : '';
             const subject = row.dataset.subject ? normalizeText(row.dataset.subject) : '';
-            row.classList.toggle('hidden', !(title.includes(q) || subject.includes(q)));
+            const visible = !q || title.includes(q) || subject.includes(q);
+            row.classList.toggle('hidden', !visible);
+            if (visible) anyVisible = true;
         });
-    });
+
+        // Show empty state if no results
+        const homeView = document.getElementById('homeView');
+        const existingEmpty = homeView.querySelector('.global-search-empty');
+        if (!anyVisible && q && !existingEmpty) {
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'empty-state global-search-empty';
+            emptyDiv.innerHTML = `<i class="fas fa-search" aria-hidden="true"></i><p>No results for "${value}"</p>`;
+            homeView.insertBefore(emptyDiv, document.getElementById('extraMaterialsList').nextSibling);
+        } else if (existingEmpty && (anyVisible || !q)) {
+            existingEmpty.remove();
+        }
+    }, 300);
+
+    globalSearch.addEventListener('input', (e) => debouncedGlobalSearch(e.target.value));
 
     // initial load
     if (!localStorage.getItem('studentId')) localStorage.setItem('studentId', 'STU-24-3782');
-    renderSubjects();
-    renderExtraMaterials();
+    
+    // Render everything
+    try {
+        renderSubjects();
+        renderExtraMaterials();
+        renderRecentVideos();
+    } catch (error) {
+        console.error('Initial render error:', error);
+        showToast('Error loading content. Please refresh.', true);
+    }
+
     views.forEach(v => v.classList.add('hidden'));
     homeView.classList.remove('hidden', 'fade-out');
     navStack = [{ view: 'home' }];
 })();
-    // Block all links to youtube.com
-document.addEventListener('click', function(e) {
-    // Find if the clicked element or its parent is a link
-    const link = e.target.closest('a');
-    if (link && link.href && link.href.includes('youtube.com')) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Show a friendly message
-        showToast('YouTube website is blocked. Please use the embedded player only.');
-        return false;
-    }
-}, true); // Use capture phase to catch events early
-
-// Also block window.open attempts for YouTube
-const originalWindowOpen = window.open;
-window.open = function(url, name, features) {
-    if (url && url.includes('youtube.com')) {
-        showToast('YouTube website is blocked. Please use the embedded player only.');
-        return null;
-    }
-    return originalWindowOpen.call(this, url, name, features);
-};
-
-// Helper function to show toast message
-function showToast(message) {
-    const toast = document.getElementById('copyToast');
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
-}
 </script>
 </body>
-
 </html>
-
