@@ -531,7 +531,7 @@ setTimeout(() => {
                 setError(accessCodeInput, accessErr, 'Access code is required');
                 isValid = false;
             } else if (accessCode !== correctCode) {
-                setError(accessCodeInput, accessErr, `Incorrect code. (hint: ${correctCode})`);
+                setError(accessCodeInput, accessErr, `Incorrect code.`);
                 isValid = false;
             }
 
@@ -553,5 +553,6 @@ setTimeout(() => {
 </script>
 </body>
 </html>
+
 
 
