@@ -713,6 +713,38 @@
     homeView.classList.remove('hidden', 'fade-out');
     navStack = [{ view: 'home' }];
 })();
+    // Block all links to youtube.com
+document.addEventListener('click', function(e) {
+    // Find if the clicked element or its parent is a link
+    const link = e.target.closest('a');
+    if (link && link.href && link.href.includes('youtube.com')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Show a friendly message
+        showToast('YouTube website is blocked. Please use the embedded player only.');
+        return false;
+    }
+}, true); // Use capture phase to catch events early
+
+// Also block window.open attempts for YouTube
+const originalWindowOpen = window.open;
+window.open = function(url, name, features) {
+    if (url && url.includes('youtube.com')) {
+        showToast('YouTube website is blocked. Please use the embedded player only.');
+        return null;
+    }
+    return originalWindowOpen.call(this, url, name, features);
+};
+
+// Helper function to show toast message
+function showToast(message) {
+    const toast = document.getElementById('copyToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
 </script>
 </body>
+
 </html>
