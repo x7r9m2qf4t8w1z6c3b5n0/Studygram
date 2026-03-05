@@ -12,16 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;  /* This removes the blue tap */
-    -webkit-touch-callout: none;
-}
-
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
 
         html, body {
-            background: radial-gradient(circle at 20% 30%, #1a1f3a, #030513);
+            background: #030513; /* Fallback solid color */
             height: 100%;
             display: flex;
             justify-content: center;
@@ -33,7 +32,7 @@
         .app {
             width: 360px;
             height: 740px;
-            background: linear-gradient(145deg, #09123a 0%, #02062c 100%);
+            background: #0a1235; /* Solid dark blue instead of gradient */
             color: #f0ecdd;
             overflow-y: auto;
             overflow-x: hidden;
@@ -41,8 +40,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 0 20px 0;              /* no vertical padding at start */
-            backdrop-filter: blur(2px);
+            padding: 0 0 20px 0;
+            -webkit-overflow-scrolling: touch; /* Enables smooth iOS scrolling */
             scrollbar-width: thin;
             scrollbar-color: #5e6f9f #1e264a;
         }
@@ -58,7 +57,7 @@
             border-radius: 20px;
         }
 
-        /* --- CENTER LOADER ZONE (absolutely centered) --- */
+        /* --- CENTER LOADER ZONE --- */
         .loader-container {
             position: absolute;
             top: 0;
@@ -72,7 +71,8 @@
             gap: 24px;
             transition: opacity 0.8s ease;
             z-index: 20;
-            pointer-events: none;  /* let clicks pass if needed, but we control fade */
+            pointer-events: none;
+            background: #0a1235; /* Match app background */
         }
 
         .loader-container.fade-out {
@@ -86,6 +86,8 @@
             border-radius: 15px;
             overflow: hidden;
             transition: opacity 0.7s;
+            background: #1e2b5a;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Replaces blur effect */
         }
 
         .image-container img {
@@ -93,17 +95,15 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            background: #1e2b5a;
         }
 
-        /* sleek loader bar */
+        /* Sleek loader bar - simplified */
         .loader {
             width: 200px;
             height: 6px;
             background: rgba(255,255,240,0.2);
             border-radius: 12px;
             overflow: hidden;
-            backdrop-filter: blur(4px);
         }
 
         .loader-bar {
@@ -112,6 +112,7 @@
             background: linear-gradient(90deg, #b3ccff, #ffffff, #cadcff);
             border-radius: 12px;
             animation: load 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            will-change: width; /* Performance hint */
         }
 
         @keyframes load {
@@ -122,7 +123,7 @@
             100% { width: 100%; opacity: 0.95; }
         }
 
-        /* --- main content (title + form) fades in after loader --- */
+        /* --- Main content --- */
         .content {
             width: 100%;
             display: flex;
@@ -164,13 +165,11 @@
             box-shadow: 0 8px 18px rgba(0,0,0,0.5);
         }
 
-        /* unified form card */
+        /* Login card - simplified (no backdrop-filter) */
         .login-card {
             width: 85%;
             max-width: 300px;
-            background: rgba(18, 25, 55, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(18, 25, 55, 0.95); /* More opaque, less transparent */
             border-radius: 42px;
             padding: 28px 20px;
             border: 1px solid rgba(255, 245, 200, 0.2);
@@ -213,6 +212,8 @@
             color: #f2f0e0;
             font-family: 'Hind Siliguri', 'Poppins', sans-serif;
             transition: all 0.2s;
+            -webkit-appearance: none; /* Removes iOS default styling */
+            appearance: none;
         }
 
         input:focus {
@@ -260,6 +261,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         button i {
@@ -267,7 +270,7 @@
             font-size: 16px;
         }
 
-        button:hover {
+        button:active {
             background: #ffeac2;
             transform: scale(0.98);
         }
@@ -294,6 +297,11 @@
             color: #04105c;
             font-weight: 600;
             gap: 5px;
+            white-space: nowrap; /* Prevents button text wrap */
+        }
+
+        .id-row button:active {
+            background: #d9d3c5;
         }
 
         .small-note {
@@ -304,25 +312,36 @@
             border-top: 1px dashed rgba(255,255,200,0.15);
             padding-top: 12px;
         }
-.app.no-scroll {
-    overflow: hidden;
-    height: 740px;  /* Keep fixed height */
-    position: relative;
-}
-.app.loading {
-    pointer-events: none;  
-}
 
-.app.loading .loader-container {
-    pointer-events: none; 
-}
+        .app.no-scroll {
+            overflow: hidden;
+            height: 740px;
+            position: relative;
+        }
 
+        .app.loading {
+            pointer-events: none;  
+        }
+
+        .app.loading .loader-container {
+            pointer-events: none; 
+        }
+
+        /* Hardware acceleration for smooth animations */
+        .loader-bar, .content, .login-card {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
     </style>
 </head>
 <body>
-<br>
+    <br>
 <div class="app">
-    <!-- LOADER SECTION – absolutely centered -->
+    <!-- LOADER SECTION -->
     <div class="loader-container" id="loaderContainer">
         <div class="image-container">
             <img src="logo.jpg" alt="logo" onerror="this.src='https://via.placeholder.com/400x400/1e2b5a/ffffff?text=📘'">
@@ -332,7 +351,7 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT (title + unified form) initially hidden -->
+    <!-- MAIN CONTENT -->
     <div class="content" id="mainContent">
         <div class="studygram-title">
             Login
@@ -341,20 +360,20 @@
         <div class="login-card">
             <!-- Name -->
             <label><i class="fas fa-user"></i> Name</label>
-            <input type="text" id="name" placeholder="e.g. Hoo Lee Sheet" value="">
+            <input type="text" id="name" placeholder="e.g. Hoo Lee Sheet" value="" autocomplete="off">
             <div class="error-message" id="nameError"></div>
 
             <!-- Gmail -->
             <label><i class="fab fa-google"></i> Gmail</label>
-            <input type="email" id="gmail" placeholder="iamnigga@gmail.com" value="">
+            <input type="email" id="gmail" placeholder="example@gmail.com" value="" autocomplete="off">
             <div class="error-message" id="gmailError"></div>
 
             <!-- College -->
             <label><i class="fas fa-university"></i> College</label>
-            <input type="text" id="college" placeholder="Nigga College" value="">
+            <input type="text" id="college" placeholder="Your College" value="" autocomplete="off">
             <div class="error-message" id="collegeError"></div>
 
-            <!-- Student ID (auto, with copy) -->
+            <!-- Student ID -->
             <label><i class="fas fa-qrcode"></i> Student ID</label>
             <div class="id-row">
                 <input type="text" id="studentId" readonly value="">
@@ -364,10 +383,10 @@
 
             <!-- Access Code -->
             <label><i class="fas fa-lock"></i> Access Code</label>
-            <input type="text" id="accessCode" placeholder="">
+            <input type="text" id="accessCode" placeholder="" autocomplete="off">
             <div class="error-message" id="accessError"></div>
 
-            <!-- Proceed button (single step) -->
+            <!-- Proceed button -->
             <button onclick="handleProceed()"><i class="fas fa-sign-in-alt"></i> Proceed</button>
         </div>
     </div>
@@ -375,22 +394,10 @@
 
 <script>
     (function() {
-        // ---------- REDIRECT if already logged in (before loader finishes) ----------
-        if (localStorage.getItem("loggedIn") === "true") {
-            // Still show loader briefly? requirement: show loader thing and send to home.html
-            // We keep the loader for 5 seconds then redirect, but we can also redirect immediately after loader.
-            // To be smooth: display loader full 5 sec then redirect. but "send him to home.html" likely immediate after loader.
-            // We'll wait the 5s with loader visible, then redirect. That matches "show the loader thing and send him to home.html"
-            // So we don't redirect instantly, we let loader run, then redirect.
-            console.log("already logged in – will redirect after loader");
-            setTimeout(() => {
-                window.location.replace("home.html");
-            }, 5000); // 5 seconds
-        }
-
-        // ---------- Elements ----------
+        // Elements
         const loaderContainer = document.getElementById('loaderContainer');
         const mainContent = document.getElementById('mainContent');
+        const appElement = document.querySelector('.app');
 
         // Inputs
         const nameInput = document.getElementById('name');
@@ -406,27 +413,30 @@
         const studentIdErr = document.getElementById('studentIdError');
         const accessErr = document.getElementById('accessError');
 
-        // Add scroll-blocking class immediately when page loads
-document.querySelector('.app').classList.add('loading', 'no-scroll');
+        // ---------- REDIRECT if already logged in ----------
+        if (localStorage.getItem("loggedIn") === "true") {
+            setTimeout(() => {
+                window.location.replace("home.html");
+            }, 5000);
+        }
 
-// ---------- Loader fade + content fade + enable interactions ----------
-setTimeout(() => {
-    // Fade out loader container
-    loaderContainer.classList.add('fade-out');
-    
-    // Enable scrolling AND clicks by removing BOTH classes
-    document.querySelector('.app').classList.remove('loading', 'no-scroll');
+        // Add loading classes
+        appElement.classList.add('loading', 'no-scroll');
 
-    // After fade, hide loader container (so it doesn't block clicks) and show content
-    setTimeout(() => {
-        loaderContainer.style.display = 'none';   // remove from layout
+        // ---------- Loader fade + content fade ----------
+        setTimeout(() => {
+            loaderContainer.classList.add('fade-out');
+            
+            // Enable scrolling and interactions
+            appElement.classList.remove('loading', 'no-scroll');
 
-        // Make content visible with fade
-        mainContent.classList.add('visible');
-    }, 800); // match fade-out duration
-}, 5000); // 5 sec loading
+            setTimeout(() => {
+                loaderContainer.style.display = 'none';
+                mainContent.classList.add('visible');
+            }, 800);
+        }, 5000);
 
-        // ---------- Student ID generation / retrieval ----------
+        // ---------- Student ID generation ----------
         function updateStudentID() {
             let stored = localStorage.getItem('studentId');
             if (!stored) {
@@ -437,7 +447,6 @@ setTimeout(() => {
             return stored;
         }
 
-        // generate random 8-char alphanumeric
         window.generateStudentID = function() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let id = "";
@@ -447,10 +456,9 @@ setTimeout(() => {
             return id;
         };
 
-        // initialise student ID on page load (even before form appears)
         updateStudentID();
 
-        // ---------- helpers: clear errors ----------
+        // ---------- Clear errors ----------
         function clearAllErrors() {
             [nameErr, gmailErr, collegeErr, studentIdErr, accessErr].forEach(div => div.innerHTML = '');
             [nameInput, gmailInput, collegeInput, studentIdField, accessCodeInput].forEach(inp => inp.classList.remove('error-border'));
@@ -461,7 +469,7 @@ setTimeout(() => {
             errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
         }
 
-        // ---------- Access code algorithm (same as before) ----------
+        // ---------- Access code algorithm ----------
         function generateAccessCode(studentId) {
             const secret = "COURSE2025";
             let hash = 0;
@@ -472,7 +480,7 @@ setTimeout(() => {
             return btoa(String(hash)).substring(0, 8);
         }
 
-        // ---------- Copy ID with feedback ----------
+        // ---------- Copy ID ----------
         window.copyID = function() {
             if (navigator.clipboard && studentIdField.value) {
                 navigator.clipboard.writeText(studentIdField.value);
@@ -485,14 +493,14 @@ setTimeout(() => {
             }
         };
 
-        // ---------- MAIN PROCEED (unified validation) ----------
+        // ---------- MAIN PROCEED ----------
         window.handleProceed = function() {
             clearAllErrors();
 
             const nameVal = nameInput.value.trim();
             const gmailVal = gmailInput.value.trim();
             const collegeVal = collegeInput.value.trim();
-            const studentId = studentIdField.value.trim();   // always present
+            const studentId = studentIdField.value.trim();
             const accessCode = accessCodeInput.value.trim();
 
             let isValid = true;
@@ -519,7 +527,7 @@ setTimeout(() => {
                 isValid = false;
             }
 
-            // Student ID should be present (it is auto)
+            // Student ID
             if (!studentId) {
                 setError(studentIdField, studentIdErr, 'ID error – regenerate?');
                 isValid = false;
@@ -531,21 +539,18 @@ setTimeout(() => {
                 setError(accessCodeInput, accessErr, 'Access code is required');
                 isValid = false;
             } else if (accessCode !== correctCode) {
-                setError(accessCodeInput, accessErr, `Incorrect code.`);
+                setError(accessCodeInput, accessErr, 'Incorrect code.');
                 isValid = false;
             }
 
             if (!isValid) return;
 
-            // ---------- SUCCESS: store & redirect ----------
-            // Save details to localStorage (optional)
+            // Save to localStorage
             localStorage.setItem('studentName', nameVal);
             localStorage.setItem('studentGmail', gmailVal);
             localStorage.setItem('studentCollege', collegeVal);
             localStorage.setItem('loggedIn', 'true');
-            // studentId already stored
 
-            // Redirect to home.html
             window.location.href = 'home.html';
         };
 
@@ -553,6 +558,3 @@ setTimeout(() => {
 </script>
 </body>
 </html>
-
-
-
