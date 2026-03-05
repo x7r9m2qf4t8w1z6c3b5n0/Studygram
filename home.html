@@ -11,6 +11,33 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --bg-primary: #030513;
+            --bg-secondary: #0a1235;
+            --bg-card: #132049;
+            --bg-hover: #1b275a;
+            --text-primary: #f0ecdd;
+            --text-secondary: #9aa9c9;
+            --accent: #ffe2a4;
+            --accent-light: #ffdd9e;
+            --border-light: rgba(255,245,200,0.1);
+            --border-accent: rgba(255,230,160,0.3);
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 30px;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 40px;
+            --border-radius-full: 50px;
+            --transition-speed: 0.2s;
+            --header-height: 80px;
+            --z-index-sticky: 10;
+            --z-index-toast: 200;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,20 +46,39 @@
         }
 
         body, html {
-            background: #030513;
-            height: 100%;
+            background: var(--bg-primary);
+            min-height: 100%;
+            height: auto;
             display: flex;
             justify-content: center;
             font-family: 'Montserrat', 'Hind Siliguri', 'Crimson Text', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Visually hidden but accessible for screen readers */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        [aria-hidden="true"] {
+            display: none;
+        }
+
         .app {
             width: 100%;
             max-width: 480px;
-            height: 100vh;
-            background: #0a1235;
-            color: #f0ecdd;
+            height: 100dvh;
+            max-height: 100dvh;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             overflow-y: auto;
             overflow-x: hidden;
             position: relative;
@@ -53,11 +99,11 @@
             background: linear-gradient(90deg, #132049 25%, #1e2a55 50%, #132049 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
-            border-radius: 8px;
+            border-radius: var(--border-radius-sm);
         }
 
         .view {
-            transition: opacity 0.1s ease-in-out;
+            transition: opacity var(--transition-speed) ease-in-out;
             opacity: 1;
             display: flex;
             flex-direction: column;
@@ -75,12 +121,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 30px 21px;
-            border-bottom: 1px solid rgba(255,245,200,0.1);
-            background: #0a1235;
+            padding: var(--spacing-xl) 21px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-secondary);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: var(--z-index-sticky);
         }
         .logo-area {
             display: flex;
@@ -102,48 +148,34 @@
             margin: 0 12px;
         }
         .search-box {
-            width: 114%;
-            padding: 10px 16px;
-            border-radius: 30px;
+            width: 100%;
+            padding: 10px var(--spacing-md);
+            border-radius: var(--border-radius-full);
             border: none;
             background: rgba(255,255,240,0.1);
-            border: 1px solid rgba(255,230,160,0.3);
-            color: #f0ecdd;
+            border: 1px solid var(--border-accent);
+            color: var(--text-primary);
             font-size: 14px;
             font-family: 'Hind Siliguri', sans-serif;
             outline: none;
+            transition: border-color var(--transition-speed);
+        }
+        .search-box:focus {
+            border-color: var(--accent);
         }
         .search-box::placeholder {
-            color: #9aa9c9;
-        }
-        .profile-icon {
-            font-size: 24px;
-            color: #ffe2a4;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10%;
-            background: rgba(50,60,120,0.5);
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid rgba(255,240,170,0.3);
-        }
-        .profile-icon:active {
-            background: #3f4c8a;
-            transform: scale(0.94);
+            color: var(--text-secondary);
         }
 
         .detail-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 30px 21px;
-            background: #0a1235;
+            padding: var(--spacing-xl) 21px;
+            background: var(--bg-secondary);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: var(--z-index-sticky);
         }
         .back-btn {
             font-size: 26px;
@@ -156,7 +188,7 @@
             border-radius: 50%;
             background: #1e2a55;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background var(--transition-speed);
         }
         .back-btn:hover {
             background: #2a3a6e;
@@ -171,11 +203,11 @@
         .section-title {
             font-size: 18px;
             font-weight: 600;
-            padding: 16px 16px 16px;
+            padding: var(--spacing-md) var(--spacing-md) var(--spacing-md);
             color: #f2e5cc;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-sm);
             font-family: 'Montserrat', sans-serif;
         }
         .section-title i {
@@ -187,12 +219,12 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #9aa9c9;
+            color: var(--text-secondary);
             font-family: 'Hind Siliguri', sans-serif;
         }
         .empty-state i {
             font-size: 48px;
-            margin-bottom: 16px;
+            margin-bottom: var(--spacing-md);
             color: #3f4c8a;
         }
         .empty-state p {
@@ -207,18 +239,18 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
-            padding: 8px 16px 20px;
+            padding: var(--spacing-sm) var(--spacing-md) 20px;
         }
         .subject-card {
-            background: #132049;
-            border-radius: 24px;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
             overflow: hidden;
             border: 1px solid rgba(255,225,150,0.2);
             box-shadow: 0 10px 15px -8px black;
             cursor: pointer;
-            transition: transform 0.1s ease, opacity 0.2s;
+            transition: transform 0.1s ease, opacity var(--transition-speed);
         }
-        .subject-card:active { transform: scale(0.98); background: #1b275a; }
+        .subject-card:active { transform: scale(0.98); background: var(--bg-hover); }
         .subject-card.hidden { display: none; }
         .thumb-square {
             aspect-ratio: 1 / 1;
@@ -243,7 +275,7 @@
         .class-count {
             font-size: 11px;
             color: #acbbeb;
-            margin-top: 4px;
+            margin-top: var(--spacing-xs);
             display: flex;
             align-items: center;
             gap: 5px;
@@ -251,21 +283,21 @@
         }
         .class-count i {
             font-size: 11px;
-            color: #ffdd9e;
+            color: var(--accent-light);
         }
 
         .video-list {
             display: flex;
             flex-direction: column;
-            padding: 0 16px 20px;
-            gap: 16px;
+            padding: 0 var(--spacing-md) 20px;
+            gap: var(--spacing-md);
         }
         .video-row {
             display: flex;
             gap: 12px;
             align-items: flex-start;
             cursor: pointer;
-            transition: opacity 0.2s ease;
+            transition: opacity var(--transition-speed) ease;
         }
         .video-row.fade-out {
             opacity: 0.2;
@@ -275,7 +307,7 @@
         .video-thumb {
             width: 120px;
             aspect-ratio: 16/9;
-            border-radius: 12px;
+            border-radius: var(--border-radius-md);
             background: #16245e;
             overflow: hidden;
             flex-shrink: 0;
@@ -285,17 +317,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0;
+            transition: opacity var(--transition-speed);
         }
-        .video-duration {
+        .video-thumb img.loaded {
+            opacity: 1;
+        }
+        .video-thumb .skeleton {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-family: monospace;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         .video-details {
             flex: 1;
@@ -313,7 +346,7 @@
             margin-top: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-sm);
             font-family: 'Hind Siliguri', sans-serif;
         }
         .video-subject i {
@@ -326,14 +359,14 @@
             gap: 12px;
             align-items: center;
             cursor: pointer;
-            background: #132049;
-            border-radius: 16px;
-            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-sm) 12px;
             border: 1px solid rgba(255,225,150,0.15);
             transition: 0.1s ease;
         }
         .pdf-row:active {
-            background: #1b275a;
+            background: var(--bg-hover);
             transform: scale(0.99);
         }
         .pdf-row.hidden { display: none; }
@@ -360,14 +393,14 @@
         .pdf-meta {
             font-size: 12px;
             color: #aeb9e6;
-            margin-top: 4px;
+            margin-top: var(--spacing-xs);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-sm);
             font-family: 'Hind Siliguri', sans-serif;
         }
         .pdf-meta i {
-            color: #ffdd9e;
+            color: var(--accent-light);
         }
 
         /* Modern YouTube player container */
@@ -383,7 +416,7 @@
             border: none;
         }
         .video-info-section {
-            padding: 16px;
+            padding: var(--spacing-md);
         }
         .video-info-title {
             font-size: 20px;
@@ -402,7 +435,7 @@
         .subject-badge {
             background: #293e7c;
             padding: 6px 14px;
-            border-radius: 40px;
+            border-radius: var(--border-radius-xl);
             font-weight: 500;
             font-size: 14px;
             display: flex;
@@ -419,19 +452,23 @@
             border: none;
             color: #02103b;
             padding: 10px 24px;
-            border-radius: 40px;
+            border-radius: var(--border-radius-xl);
             font-weight: 700;
             font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-sm);
             box-shadow: 0 4px 12px rgba(0,0,0,0.6);
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            transition: transform 0.1s, background 0.2s;
+            transition: transform 0.1s, background var(--transition-speed);
         }
         .pdf-btn i { color: #b12b2b; font-size: 18px; }
         .pdf-btn:active { background: #f5f0ff; transform: scale(0.97);}
+        .pdf-btn:focus-visible {
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
+        }
 
         .hidden { display: none !important; }
         .section-divider { height: 6px; background: rgba(255,255,240,0.02);}
@@ -443,14 +480,14 @@
             transform: translateX(-50%);
             background: #1e2d5e;
             color: #ffefcf;
-            padding: 8px 20px;
-            border-radius: 50px;
+            padding: var(--spacing-sm) 20px;
+            border-radius: var(--border-radius-full);
             font-size: 14px;
             box-shadow: 0 8px 18px black;
             border: 1px solid #ffeeaa;
-            z-index: 200;
+            z-index: var(--z-index-toast);
             opacity: 0;
-            transition: opacity 0.2s ease;
+            transition: opacity var(--transition-speed) ease;
             pointer-events: none;
             font-family: 'Hind Siliguri', sans-serif;
         }
@@ -458,60 +495,18 @@
             opacity: 1;
         }
 
-        /* Recent videos section */
-        .recent-videos {
-            padding: 0 16px 20px;
-        }
-        .recent-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #ffeac2;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .recent-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-        }
-        .recent-item {
-            cursor: pointer;
-        }
-        .recent-thumb {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #132049;
-        }
-        .recent-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .recent-item-title {
-            font-size: 12px;
-            margin-top: 4px;
-            color: #acbbeb;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
         /* Progress bar for videos */
         .progress-bar {
             width: 100%;
             height: 3px;
             background: #293e7c;
-            margin-top: 8px;
+            margin-top: var(--spacing-sm);
             border-radius: 3px;
             overflow: hidden;
         }
         .progress-fill {
             height: 100%;
-            background: #ffdd9e;
+            background: var(--accent-light);
             width: 0%;
             transition: width 0.3s;
         }
@@ -522,70 +517,87 @@
         .video-row:focus-visible,
         .pdf-btn:focus-visible,
         .search-box:focus-visible {
-            outline: 2px solid #ffdd9e;
+            outline: 2px solid var(--accent-light);
             outline-offset: 2px;
+        }
+
+        /* Loading indicator */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 <div class="app" id="app">
-    <div class="copy-toast" id="copyToast">Student ID copied</div>
+    <div class="copy-toast" id="copyToast" role="status" aria-live="polite">Student ID copied</div>
+    
+    <!-- Screen reader announcer -->
+    <div class="visually-hidden" id="announcer" aria-live="polite" aria-atomic="true"></div>
 
     <!-- HOME VIEW -->
-    <div id="homeView" class="view">
+    <div id="homeView" class="view" aria-labelledby="home-title">
         <div class="header">
             <div class="logo-area">
-                <span class="logo-text">Studygram</span>
+                <span class="logo-text" id="home-title">Studygram</span>
             </div>
             <div class="search-container">
                 <input type="text" class="search-box" id="globalSearch" placeholder="Search subjects or materials" aria-label="Search subjects and materials">
             </div>
         </div>
 
-
-        <div class="section-title"><i class="fas fa-book-open" aria-hidden="true"></i> Subjects</div>
+        <h2 class="section-title"><i class="fas fa-book-open" aria-hidden="true"></i> Subjects</h2>
         <div class="subject-grid" id="subjectGrid"></div>
 
-        <div class="section-divider"></div>
+        <div class="section-divider" role="separator"></div>
 
-        <div class="section-title"><i class="fas fa-file-pdf" aria-hidden="true"></i> Extra Materials</div>
+        <h2 class="section-title"><i class="fas fa-file-pdf" aria-hidden="true"></i> Extra Materials</h2>
         <div class="video-list" id="extraMaterialsList"></div>
     </div>
 
     <!-- SUBJECT DETAIL VIEW -->
-    <div id="subjectDetailView" class="view hidden">
+    <div id="subjectDetailView" class="view hidden" aria-labelledby="subjectDetailTitle">
         <div class="detail-header">
-            <div class="back-btn" id="backFromSubject" aria-label="Go back"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
+            <div class="back-btn" id="backFromSubject" aria-label="Go back" role="button" tabindex="0"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
             <div class="search-container detail-search">
                 <input type="text" class="search-box" id="subjectSearch" placeholder="Filter videos in this subject" aria-label="Filter videos">
             </div>
         </div>
-        <div class="section-title"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="subjectDetailTitle">Physics First Paper</span></div>
+        <h2 class="section-title"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="subjectDetailTitle">Physics First Paper</span></h2>
         <div class="video-list" id="subjectVideoList"></div>
     </div>
 
     <!-- PLAYER VIEW -->
-    <div id="playerView" class="view hidden">
+    <div id="playerView" class="view hidden" aria-labelledby="playerVideoTitle">
         <div class="detail-header">
-            <div class="back-btn" id="backFromPlayer" aria-label="Go back"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
-            <div class="section-title" style="padding: 0; margin: 0;"><i class="fas fa-play-circle" aria-hidden="true"></i> Now Playing</div>
+            <div class="back-btn" id="backFromPlayer" aria-label="Go back" role="button" tabindex="0"><i class="fas fa-arrow-left" aria-hidden="true"></i></div>
+            <h2 class="section-title" style="padding: 0; margin: 0;"><i class="fas fa-play-circle" aria-hidden="true"></i> Now Playing</h2>
         </div>
         <div class="player-container" id="youtubePlayer"></div>
         <div class="video-info-section">
-            <div class="video-info-title" id="playerVideoTitle">Video title</div>
+            <h1 class="video-info-title" id="playerVideoTitle">Video title</h1>
             <div class="meta-bar">
                 <div class="channel-like">
                     <span class="subject-badge" id="playerSubjectName"><i class="fas fa-tag" aria-hidden="true"></i> Subject</span>
                 </div>
                 <button class="pdf-btn" id="pdfDriveBtn" aria-label="Open PDF material"><i class="fas fa-file-pdf" aria-hidden="true"></i> PDF</button>
             </div>
-            <!-- Progress bar (new) -->
-            <div class="progress-bar" id="progressBar">
+            <!-- Progress bar -->
+            <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                 <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
             </div>
         </div>
 
-        <div class="section-title" style="padding-top: 8px;"><i class="fas fa-list" aria-hidden="true"></i> More from this subject</div>
+        <h2 class="section-title" style="padding-top: var(--spacing-sm);"><i class="fas fa-list" aria-hidden="true"></i> More from this subject</h2>
         <div class="video-list" id="moreVideosList" style="padding-bottom: 20px;"></div>
     </div>
 </div>
@@ -594,16 +606,64 @@
 <script src="data.js"></script>
 <script>
 (function() {
-    // ---------- DATA (now from global window object) ----------
-    const lectures = window.lectureData || [];
-    const extraMaterials = window.extraMaterials || [];
-    const subjectImage = window.subjectImage || {};
+    'use strict';
 
-    function normalizeText(text) {
-        return text.toLowerCase().normalize("NFC").trim();
+    // ---------- DATA VALIDATION ----------
+    const LectureSchema = {
+        videoid: { required: true, pattern: /^[a-zA-Z0-9_-]{11}$/ },
+        videotitle: { required: true, maxLength: 200 },
+        subject: { required: true, maxLength: 100 },
+        videopdf: { required: true, pattern: /^https?:\/\// }
+    };
+
+    const MaterialSchema = {
+        title: { required: true, maxLength: 200 },
+        subject: { required: true, maxLength: 100 },
+        pdfUrl: { required: true, pattern: /^https?:\/\// }
+    };
+
+    function validateItem(item, schema, type) {
+        return Object.keys(schema).every(key => {
+            const rule = schema[key];
+            const value = item[key];
+            
+            if (rule.required && !value) {
+                console.warn(`Missing required field '${key}' in ${type}`);
+                return false;
+            }
+            if (rule.pattern && !rule.pattern.test(value)) {
+                console.warn(`Invalid pattern for '${key}' in ${type}:`, value);
+                return false;
+            }
+            if (rule.maxLength && value && value.length > rule.maxLength) {
+                console.warn(`Field '${key}' exceeds max length in ${type}`);
+                return false;
+            }
+            return true;
+        });
     }
 
-    // Debounce function for search
+    // Filter and validate data
+    const rawLectures = window.lectureData || [];
+    const rawMaterials = window.extraMaterials || [];
+    const subjectImage = window.subjectImage || {};
+
+    const lectures = rawLectures.filter(item => validateItem(item, LectureSchema, 'lecture'));
+    const extraMaterials = rawMaterials.filter(item => validateItem(item, MaterialSchema, 'material'));
+
+    // Provide fallbacks for missing data
+    if (rawLectures.length !== lectures.length) {
+        console.warn(`Filtered out ${rawLectures.length - lectures.length} invalid lectures`);
+    }
+    if (rawMaterials.length !== extraMaterials.length) {
+        console.warn(`Filtered out ${rawMaterials.length - extraMaterials.length} invalid materials`);
+    }
+
+    // ---------- UTILITY FUNCTIONS ----------
+    function normalizeText(text) {
+        return String(text || '').toLowerCase().normalize("NFC").trim();
+    }
+
     function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -612,41 +672,310 @@
         };
     }
 
-    // ---------- navigation stack + smooth fade ----------
+    function announce(message) {
+        const announcer = document.getElementById('announcer');
+        if (announcer) {
+            announcer.textContent = message;
+        }
+    }
+
+    // Image lazy loading with Intersection Observer
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                }
+                imageObserver.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+
+    // ---------- SAFE DOM MANIPULATION ----------
+    function createElementFromHTML(html) {
+        const template = document.createElement('template');
+        template.innerHTML = html.trim();
+        return template.content.firstChild;
+    }
+
+    function sanitizeText(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function clearContainer(container) {
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+    }
+
+    // ---------- COMPONENT CREATORS (Safe DOM methods) ----------
+    function createSubjectCard(subject, count) {
+        const card = document.createElement('div');
+        card.className = 'subject-card';
+        card.dataset.subject = subject;
+        card.tabIndex = 0;
+        card.role = 'button';
+        card.setAttribute('aria-label', `${subject} subject with ${count} videos`);
+
+        const thumbDiv = document.createElement('div');
+        thumbDiv.className = 'thumb-square';
+        
+        const img = document.createElement('img');
+        const imgFile = subjectImage[subject] || 'https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject';
+        img.dataset.src = imgFile;
+        img.alt = subject;
+        
+        // Error handling
+        img.onerror = function() {
+            this.src = 'https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject';
+            this.onerror = null;
+        };
+        
+        thumbDiv.appendChild(img);
+        imageObserver.observe(img);
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'card-info';
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'subject-name';
+        nameDiv.textContent = subject;
+        
+        const countDiv = document.createElement('div');
+        countDiv.className = 'class-count';
+        countDiv.innerHTML = '<i class="fas fa-play-circle" aria-hidden="true"></i> ' + count + ' classes';
+
+        infoDiv.appendChild(nameDiv);
+        infoDiv.appendChild(countDiv);
+        
+        card.appendChild(thumbDiv);
+        card.appendChild(infoDiv);
+
+        return card;
+    }
+
+    function createVideoRow(video) {
+        const row = document.createElement('div');
+        row.className = 'video-row';
+        row.dataset.videoid = video.videoid;
+        row.dataset.subject = video.subject;
+        row.dataset.title = video.videotitle;
+        row.dataset.pdf = video.videopdf;
+        row.tabIndex = 0;
+        row.role = 'button';
+        row.setAttribute('aria-label', `Play ${video.videotitle}`);
+
+        const thumbDiv = document.createElement('div');
+        thumbDiv.className = 'video-thumb';
+        
+        const img = document.createElement('img');
+        img.dataset.src = `https://img.youtube.com/vi/${video.videoid}/mqdefault.jpg`;
+        img.alt = video.videotitle;
+        img.loading = 'lazy';
+        
+        thumbDiv.appendChild(img);
+        imageObserver.observe(img);
+
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'video-details';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'video-title';
+        titleDiv.textContent = video.videotitle;
+        
+        const subjectDiv = document.createElement('div');
+        subjectDiv.className = 'video-subject';
+        subjectDiv.innerHTML = '<i class="fas fa-folder-open" aria-hidden="true"></i> ' + sanitizeText(video.subject);
+
+        detailsDiv.appendChild(titleDiv);
+        detailsDiv.appendChild(subjectDiv);
+        
+        row.appendChild(thumbDiv);
+        row.appendChild(detailsDiv);
+
+        return row;
+    }
+
+    function createPDFRow(item) {
+        const row = document.createElement('div');
+        row.className = 'pdf-row';
+        row.dataset.pdfUrl = item.pdfUrl;
+        row.dataset.title = item.title;
+        row.dataset.subject = item.subject;
+        row.tabIndex = 0;
+        row.role = 'button';
+        row.setAttribute('aria-label', `Open PDF: ${item.title}`);
+
+        const iconDiv = document.createElement('div');
+        iconDiv.className = 'pdf-icon-big';
+        iconDiv.innerHTML = '<i class="fas fa-file-pdf" aria-hidden="true"></i>';
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'pdf-info';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'pdf-title';
+        titleDiv.textContent = item.title;
+        
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'pdf-meta';
+        metaDiv.innerHTML = '<i class="fas fa-folder" aria-hidden="true"></i> ' + sanitizeText(item.subject);
+
+        infoDiv.appendChild(titleDiv);
+        infoDiv.appendChild(metaDiv);
+        
+        row.appendChild(iconDiv);
+        row.appendChild(infoDiv);
+
+        return row;
+    }
+
+    function createEmptyState(message, icon = 'fa-inbox', isSmall = false) {
+        const div = document.createElement('div');
+        div.className = 'empty-state';
+        
+        const iconEl = document.createElement('i');
+        iconEl.className = `fas ${icon}`;
+        iconEl.setAttribute('aria-hidden', 'true');
+        
+        const p = document.createElement('p');
+        p.textContent = message;
+        
+        div.appendChild(iconEl);
+        div.appendChild(p);
+        
+        if (isSmall) {
+            const small = document.createElement('small');
+            small.textContent = 'Check back later';
+            div.appendChild(small);
+        }
+        
+        return div;
+    }
+
+    // ---------- RENDER FUNCTIONS (Using safe DOM methods) ----------
+    function renderSubjects() {
+        const subjects = getSubjectsWithCounts();
+        const grid = document.getElementById('subjectGrid');
+        
+        clearContainer(grid);
+        
+        if (subjects.length === 0) {
+            grid.appendChild(createEmptyState('No subjects available', 'fa-book', true));
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        subjects.forEach(s => {
+            fragment.appendChild(createSubjectCard(s.name, s.count));
+        });
+        grid.appendChild(fragment);
+    }
+
+    function renderVideoItems(videoArray, containerId, limit = 20) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        clearContainer(container);
+        
+        if (videoArray.length === 0) {
+            container.appendChild(createEmptyState('No videos found', 'fa-video', true));
+            return;
+        }
+
+        const take = videoArray.slice(0, limit);
+        const fragment = document.createDocumentFragment();
+        take.forEach(v => {
+            fragment.appendChild(createVideoRow(v));
+        });
+        container.appendChild(fragment);
+    }
+
+    function renderExtraMaterials() {
+        const container = document.getElementById('extraMaterialsList');
+        if (!container) return;
+        
+        clearContainer(container);
+        
+        if (extraMaterials.length === 0) {
+            container.appendChild(createEmptyState('No extra materials available', 'fa-file-pdf', true));
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        extraMaterials.forEach(item => {
+            fragment.appendChild(createPDFRow(item));
+        });
+        container.appendChild(fragment);
+    }
+
+    // ---------- STATE MANAGEMENT (History API) ----------
     const homeView = document.getElementById('homeView');
     const subjectDetailView = document.getElementById('subjectDetailView');
     const playerView = document.getElementById('playerView');
     const views = [homeView, subjectDetailView, playerView];
 
-    let navStack = [];
+    // Event listener references for cleanup
+    const eventListeners = new Map();
+    let currentFilterHandler = null;
 
-    function pushState(state) {
-        navStack.push(state);
+    function navigateToState(state) {
+        if (!state) {
+            showHome(false);
+            return;
+        }
+
+        switch (state.view) {
+            case 'home':
+                showHome(false);
+                break;
+            case 'subject':
+                showSubjectDetail(state.subject, false);
+                break;
+            case 'player':
+                showPlayer(state.videoid, state.subject, state.title, state.pdf, false);
+                break;
+            default:
+                showHome(false);
+        }
     }
 
-    function popState() {
-        return navStack.pop();
-    }
-
-    function getCurrentState() {
-        return navStack.length ? navStack[navStack.length-1] : null;
-    }
+    // History API integration
+    window.addEventListener('popstate', (event) => {
+        navigateToState(event.state);
+    });
 
     function stopVideo() {
         const player = document.getElementById('youtubePlayer');
         if (player) {
-            player.innerHTML = ''; // Clear iframe to stop video
+            clearContainer(player);
         }
     }
 
-    function switchView(targetView, onAfterShow) {
+    function switchView(targetView, onAfterShow, updateHistory = true) {
         const currentView = views.find(v => !v.classList.contains('hidden') && !v.classList.contains('fade-out'));
+        
         if (!currentView) {
             views.forEach(v => v.classList.add('hidden'));
             targetView.classList.remove('hidden', 'fade-out');
+            
+            // Set focus for accessibility
+            const heading = targetView.querySelector('h1, h2, [role="heading"]');
+            if (heading) {
+                heading.tabIndex = -1;
+                heading.focus();
+            }
+            
             if (onAfterShow) onAfterShow();
             return;
         }
+        
         if (currentView === targetView) return;
 
         // If leaving player view, stop the video
@@ -659,324 +988,211 @@
             currentView.classList.add('hidden');
             currentView.classList.remove('fade-out');
             targetView.classList.remove('hidden', 'fade-out');
+            
+            // Set focus for accessibility
+            const heading = targetView.querySelector('h1, h2, [role="heading"]');
+            if (heading) {
+                heading.tabIndex = -1;
+                heading.focus();
+            }
+            
+            announce(`View changed to ${targetView.id.replace('View', '')}`);
+            
             if (onAfterShow) onAfterShow();
         }, 250);
     }
 
-    // Show toast message
     function showToast(message, isError = false) {
         const toast = document.getElementById('copyToast');
         toast.textContent = message;
         toast.style.background = isError ? '#5e2a2a' : '#1e2d5e';
         toast.classList.add('show');
+        announce(message);
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
-    // Render empty state
-    function renderEmptyState(container, message, icon = 'fa-inbox', isSmall = false) {
-        container.innerHTML = `<div class="empty-state">
-            <i class="fas ${icon}" aria-hidden="true"></i>
-            <p>${message}</p>
-            ${isSmall ? '<small>Check back later</small>' : ''}
-        </div>`;
-    }
-
-    // ----- Render helpers -----
     function getSubjectsWithCounts() {
         const map = new Map();
         lectures.forEach(v => map.set(v.subject, (map.get(v.subject) || 0) + 1));
         return Array.from(map.entries()).map(([name, count]) => ({ name, count }));
     }
 
-    function renderSubjects() {
-        const subjects = getSubjectsWithCounts();
-        const grid = document.getElementById('subjectGrid');
-        
-        if (subjects.length === 0) {
-            renderEmptyState(grid, 'No subjects available', 'fa-book', true);
-            return;
-        }
+    // ----- Event Handlers (defined once) -----
+    function handleSubjectCardClick(e) {
+        const card = e.currentTarget;
+        const subject = card.dataset.subject;
+        showSubjectDetail(subject);
+    }
 
-        grid.innerHTML = subjects.map(s => {
-            const imgFile = subjectImage[s.name] || 'https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject';
-            return `<div class="subject-card" data-subject="${s.name}" tabindex="0" role="button" aria-label="${s.name} subject with ${s.count} videos">
-                <div class="thumb-square"><img src="${imgFile}" alt="${s.name}" onerror="this.src='https://via.placeholder.com/300/1e2b5a/ffffff?text=Subject'"></div>
-                <div class="card-info"><div class="subject-name">${s.name}</div><div class="class-count"><i class="fas fa-play-circle" aria-hidden="true"></i> ${s.count} classes</div></div>
-            </div>`;
-        }).join('');
-        
-        document.querySelectorAll('.subject-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const subject = card.dataset.subject;
-                showSubjectDetail(subject);
-            });
+    function handleVideoRowClick(e) {
+        const row = e.currentTarget;
+        const videoid = row.dataset.videoid;
+        const subject = row.dataset.subject;
+        const title = row.dataset.title;
+        const pdf = row.dataset.pdf;
+        showPlayer(videoid, subject, title, pdf);
+    }
+
+    function handlePDFRowClick(e) {
+        const row = e.currentTarget;
+        const pdfUrl = row.dataset.pdfUrl;
+        window.location.href = pdfUrl;
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.currentTarget.click();
+        }
+    }
+
+    function createFilterHandler(containerId) {
+        return debounce(function(value) {
+            const q = normalizeText(value);
+            const rows = document.querySelectorAll(`#${containerId} .video-row`);
+            let visibleCount = 0;
             
-            // Keyboard support
-            card.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    card.click();
-                }
+            rows.forEach(r => {
+                const t = normalizeText(r.dataset.title || '');
+                const shouldShow = !q || t.includes(q);
+                r.classList.toggle('hidden', !shouldShow);
+                if (shouldShow) visibleCount++;
             });
-        });
-    }
 
-    function renderVideoItems(videoArray, containerId, limit = 20) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        if (videoArray.length === 0) {
-            renderEmptyState(container, 'No videos found', 'fa-video', true);
-            return;
-        }
-
-        const take = videoArray.slice(0, limit);
-        container.innerHTML = take.map(v => {
-            const thumb = `https://img.youtube.com/vi/${v.videoid}/mqdefault.jpg`;
-            return `<div class="video-row" data-videoid="${v.videoid}" data-subject="${v.subject}" data-title="${v.videotitle}" data-pdf="${v.videopdf}" tabindex="0" role="button" aria-label="Play ${v.videotitle}">
-                <div class="video-thumb">
-                    <img src="${thumb}" loading="lazy" alt="${v.videotitle}">
-                </div>
-                <div class="video-details">
-                    <div class="video-title">${v.videotitle}</div>
-                    <div class="video-subject"><i class="fas fa-folder-open" aria-hidden="true"></i> ${v.subject}</div>
-                </div>
-            </div>`;
-        }).join('');
-        
-        container.querySelectorAll('.video-row').forEach(row => {
-            row.addEventListener('click', () => {
-                const videoid = row.dataset.videoid;
-                const subject = row.dataset.subject;
-                const title = row.dataset.title;
-                const pdf = row.dataset.pdf;
-                showPlayer(videoid, subject, title, pdf);
-            });
+            const container = document.getElementById(containerId);
+            const existingEmpty = container.querySelector('.empty-state');
             
-            row.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    row.click();
-                }
-            });
-        });
+            if (visibleCount === 0 && q && !existingEmpty) {
+                container.appendChild(createEmptyState(`No videos match "${value}"`, 'fa-search', true));
+            } else if (existingEmpty && (visibleCount > 0 || !q)) {
+                existingEmpty.remove();
+            }
+        }, 300);
     }
 
-    function renderExtraMaterials() {
-        const container = document.getElementById('extraMaterialsList');
-        if (!container) return;
-        
-        if (extraMaterials.length === 0) {
-            renderEmptyState(container, 'No extra materials available', 'fa-file-pdf', true);
-            return;
-        }
-
-        container.innerHTML = extraMaterials.map(item => {
-            return `<div class="pdf-row" data-pdf-url="${item.pdfUrl}" data-title="${item.title}" data-subject="${item.subject}" tabindex="0" role="button" aria-label="Open PDF: ${item.title}">
-                <div class="pdf-icon-big"><i class="fas fa-file-pdf" aria-hidden="true"></i></div>
-                <div class="pdf-info">
-                    <div class="pdf-title">${item.title}</div>
-                    <div class="pdf-meta"><i class="fas fa-folder" aria-hidden="true"></i> ${item.subject}</div>
-                </div>
-            </div>`;
-        }).join('');
-        
-        container.querySelectorAll('.pdf-row').forEach(row => {
-            row.addEventListener('click', () => {
-                const pdfUrl = row.dataset.pdfUrl;
-                // Open in same tab with _self
-                window.location.href = pdfUrl;
-            });
-            
-            row.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    row.click();
-                }
-            });
-        });
-    }
-
-    function setupFadeToggle(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.removeEventListener('click', fadeHandler);
-        container.addEventListener('click', fadeHandler);
-    }
-    
-    function fadeHandler(e) {
-        const row = e.target.closest('.video-row');
-        if (!row) return;
-        if (row.closest('#moreVideosList')) {
-            row.classList.toggle('fade-out');
-            return;
-        }
-    }
-
-    // ----- Show functions -----
-    function showHome() {
-        const target = homeView;
-        switchView(target, () => {
+    // ----- Show functions with History API -----
+    function showHome(updateHistory = true) {
+        switchView(homeView, () => {
             renderSubjects();
             renderExtraMaterials();
-            target.scrollTop = 0;
-        });
-        pushState({ view: 'home' });
+            homeView.scrollTop = 0;
+        }, updateHistory);
+        
+        if (updateHistory) {
+            history.pushState({ view: 'home' }, '', '/');
+        }
     }
 
-    function showSubjectDetail(subject) {
-        const target = subjectDetailView;
-        switchView(target, () => {
+    function showSubjectDetail(subject, updateHistory = true) {
+        switchView(subjectDetailView, () => {
             document.getElementById('subjectDetailTitle').innerText = subject;
             const filtered = lectures.filter(v => v.subject === subject);
             renderVideoItems(filtered, 'subjectVideoList', 30);
             
-            // Setup search with debounce
+            // Setup search with debounce - clean up old listener first
             const searchInput = document.getElementById('subjectSearch');
-            const debouncedFilter = debounce(function(value) {
-                const q = normalizeText(value);
-                const rows = document.querySelectorAll('#subjectVideoList .video-row');
-                let visibleCount = 0;
-                
-                rows.forEach(r => {
-                    const t = normalizeText(r.dataset.title || '');
-                    const shouldShow = !q || t.includes(q);
-                    r.classList.toggle('hidden', !shouldShow);
-                    if (shouldShow) visibleCount++;
-                });
-
-                // Show empty state if no results
-                const container = document.getElementById('subjectVideoList');
-                const existingEmpty = container.querySelector('.empty-state');
-                if (visibleCount === 0 && !existingEmpty) {
-                    renderEmptyState(container, `No videos match "${value}"`, 'fa-search', true);
-                } else if (existingEmpty && visibleCount > 0) {
-                    existingEmpty.remove();
-                }
-            }, 300);
-
-            searchInput.value = ''; // Clear previous search
-            searchInput.addEventListener('input', (e) => debouncedFilter(e.target.value));
             
-            target.scrollTop = 0;
-        });
-        pushState({ view: 'subject', subject: subject });
+            if (currentFilterHandler) {
+                searchInput.removeEventListener('input', currentFilterHandler);
+            }
+            
+            currentFilterHandler = createFilterHandler('subjectVideoList');
+            searchInput.value = '';
+            searchInput.addEventListener('input', (e) => currentFilterHandler(e.target.value));
+            
+            subjectDetailView.scrollTop = 0;
+        }, updateHistory);
+        
+        if (updateHistory) {
+            history.pushState({ view: 'subject', subject }, '', `?subject=${encodeURIComponent(subject)}`);
+        }
     }
 
-    function showPlayer(videoid, subject, title, pdfUrl) {
-        const target = playerView;
-
-        switchView(target, () => {
-            // Use modern YouTube embed with enhanced privacy and new player
-            document.getElementById('youtubePlayer').innerHTML = `
-                <iframe src="https://www.youtube-nocookie.com/embed/${videoid}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1" 
-                        allow="autoplay; encrypted-media; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>`;
+    function showPlayer(videoid, subject, title, pdfUrl, updateHistory = true) {
+        switchView(playerView, () => {
+            // Use modern YouTube embed
+            const player = document.getElementById('youtubePlayer');
+            clearContainer(player);
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube-nocookie.com/embed/${videoid}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+            iframe.allowFullscreen = true;
+            player.appendChild(iframe);
             
             document.getElementById('playerVideoTitle').innerText = title;
             document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag" aria-hidden="true"></i> ${subject}`;
             
-            // Set PDF button to open in same tab
-            document.getElementById('pdfDriveBtn').onclick = () => {
-                window.location.href = pdfUrl; // _self behavior
+            // Set PDF button
+            const pdfBtn = document.getElementById('pdfDriveBtn');
+            pdfBtn.onclick = () => {
+                window.location.href = pdfUrl;
             };
 
             const more = lectures.filter(v => v.subject === subject && v.videoid !== videoid);
             renderVideoItems(more, 'moreVideosList', 10);
-            setupFadeToggle('moreVideosList');
 
-            target.scrollTop = 0;
-        });
-        pushState({ view: 'player', subject, videoid, title, pdf: pdfUrl });
+            playerView.scrollTop = 0;
+        }, updateHistory);
+        
+        if (updateHistory) {
+            history.pushState({ view: 'player', subject, videoid, title, pdf: pdfUrl }, 
+                            '', `?video=${videoid}`);
+        }
     }
 
-    // ----- Back handlers -----
+    // ----- Back handler with History API -----
     function handleBack() {
-        if (navStack.length <= 1) return;
-        popState();
-        const prev = getCurrentState();
-        if (!prev) { showHome(); return; }
-
-        if (prev.view === 'home') {
-            switchView(homeView, () => {
-                renderSubjects();
-                renderExtraMaterials();
-            });
-        } else if (prev.view === 'subject') {
-            switchView(subjectDetailView, () => {
-                document.getElementById('subjectDetailTitle').innerText = prev.subject;
-                const filtered = lectures.filter(v => v.subject === prev.subject);
-                renderVideoItems(filtered, 'subjectVideoList', 30);
-                
-                const searchInput = document.getElementById('subjectSearch');
-                const debouncedFilter = debounce(function(value) {
-                    const q = normalizeText(value);
-                    document.querySelectorAll('#subjectVideoList .video-row').forEach(r => {
-                        const t = normalizeText(r.dataset.title || '');
-                        r.classList.toggle('hidden', !t.includes(q));
-                    });
-                }, 300);
-
-                searchInput.value = '';
-                searchInput.addEventListener('input', (e) => debouncedFilter(e.target.value));
-            });
-        } else if (prev.view === 'player') {
-            switchView(playerView, () => {
-                // Video will be stopped automatically by switchView
-                document.getElementById('youtubePlayer').innerHTML = `
-                    <iframe src="https://www.youtube-nocookie.com/embed/${prev.videoid}?autoplay=1&rel=0&modestbranding=1" 
-                            allow="autoplay; encrypted-media; picture-in-picture" 
-                            allowfullscreen>
-                    </iframe>`;
-                document.getElementById('playerVideoTitle').innerText = prev.title;
-                document.getElementById('playerSubjectName').innerHTML = `<i class="fas fa-tag" aria-hidden="true"></i> ${prev.subject}`;
-                document.getElementById('pdfDriveBtn').onclick = () => window.location.href = prev.pdf;
-                
-                const more = lectures.filter(v => v.subject === prev.subject && v.videoid !== prev.videoid);
-                renderVideoItems(more, 'moreVideosList', 10);
-                setupFadeToggle('moreVideosList');
-            });
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            // Fallback to home
+            showHome();
         }
     }
 
-    // ----- Global error handler -----
-    window.addEventListener('error', (event) => {
-        console.error('Global error:', event.error);
-        showToast('Something went wrong. Please try again.', true);
-    });
+    // ----- Global event delegation for clicks -----
+    function setupEventDelegation() {
+        // Subject grid delegation
+        document.getElementById('subjectGrid').addEventListener('click', (e) => {
+            const card = e.target.closest('.subject-card');
+            if (card) handleSubjectCardClick({ currentTarget: card });
+        });
 
-    // Block YouTube links but allow _self navigation
-    document.addEventListener('click', function(e) {
-        const link = e.target.closest('a');
-        if (link && link.href && link.href.includes('youtube.com') && !link.href.includes('youtube-nocookie.com')) {
-            e.preventDefault();
-            e.stopPropagation();
-            showToast('YouTube website is blocked. Please use the embedded player only.');
-            return false;
-        }
-    }, true);
+        // Extra materials delegation
+        document.getElementById('extraMaterialsList').addEventListener('click', (e) => {
+            const row = e.target.closest('.pdf-row');
+            if (row) handlePDFRowClick({ currentTarget: row });
+        });
 
-    // Override window.open but allow same-tab navigation
-    const originalWindowOpen = window.open;
-    window.open = function(url, name, features) {
-        if (url && url.includes('youtube.com') && !url.includes('youtube-nocookie.com')) {
-            showToast('YouTube website is blocked. Please use the embedded player only.');
-            return null;
-        }
-        // Force _self for PDFs and internal links
-        if (url && !url.includes('youtube.com')) {
-            window.location.href = url;
-            return null;
-        }
-        return originalWindowOpen.call(this, url, name, features);
-    };
+        // Subject video list delegation
+        document.getElementById('subjectVideoList').addEventListener('click', (e) => {
+            const row = e.target.closest('.video-row');
+            if (row) handleVideoRowClick({ currentTarget: row });
+        });
 
-    // Initialize
-    document.getElementById('backFromSubject').addEventListener('click', handleBack);
-    document.getElementById('backFromPlayer').addEventListener('click', handleBack);
+        // More videos list delegation
+        document.getElementById('moreVideosList').addEventListener('click', (e) => {
+            const row = e.target.closest('.video-row');
+            if (row) {
+                // Check if it's fade-out toggle
+                if (e.shiftKey) {
+                    row.classList.toggle('fade-out');
+                } else {
+                    handleVideoRowClick({ currentTarget: row });
+                }
+            }
+        });
 
-    // Global search with debounce
+        // Global keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                handleBack();
+            }
+        });
+    }
+
+    // ----- Global search with debounce -----
     const globalSearch = document.getElementById('globalSearch');
     const debouncedGlobalSearch = debounce(function(value) {
         const q = normalizeText(value);
@@ -1002,35 +1218,112 @@
         // Show empty state if no results
         const homeView = document.getElementById('homeView');
         const existingEmpty = homeView.querySelector('.global-search-empty');
+        
         if (!anyVisible && q && !existingEmpty) {
-            const emptyDiv = document.createElement('div');
-            emptyDiv.className = 'empty-state global-search-empty';
-            emptyDiv.innerHTML = `<i class="fas fa-search" aria-hidden="true"></i><p>No results for "${value}"</p>`;
+            const emptyDiv = createEmptyState(`No results for "${value}"`, 'fa-search', false);
+            emptyDiv.classList.add('global-search-empty');
             homeView.insertBefore(emptyDiv, document.getElementById('extraMaterialsList').nextSibling);
         } else if (existingEmpty && (anyVisible || !q)) {
             existingEmpty.remove();
         }
+        
+        announce(anyVisible ? `${document.querySelectorAll('.subject-card:not(.hidden), .pdf-row:not(.hidden)').length} items found` : 'No results found');
     }, 300);
 
-    globalSearch.addEventListener('input', (e) => debouncedGlobalSearch(e.target.value));
-
-    // initial load
-    if (!localStorage.getItem('studentId')) localStorage.setItem('studentId', 'STU-24-3782');
-    
-    // Render everything
-    try {
-        renderSubjects();
-        renderExtraMaterials();
-    } catch (error) {
-        console.error('Initial render error:', error);
-        showToast('Error loading content. Please refresh.', true);
+    // ----- Error handling with retry logic -----
+    async function withRetry(fn, maxRetries = 3) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                return await fn();
+            } catch (error) {
+                console.error(`Attempt ${i + 1} failed:`, error);
+                if (i === maxRetries - 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+            }
+        }
     }
 
-    views.forEach(v => v.classList.add('hidden'));
-    homeView.classList.remove('hidden', 'fade-out');
-    navStack = [{ view: 'home' }];
+    // Global error handler
+    window.addEventListener('error', (event) => {
+        console.error('Global error:', event.error);
+        showToast('Something went wrong. Please try again.', true);
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+        console.error('Unhandled promise rejection:', event.reason);
+        showToast('An error occurred. Please try again.', true);
+    });
+
+    // Block YouTube links
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (link && link.href && link.href.includes('youtube.com') && !link.href.includes('youtube-nocookie.com')) {
+            e.preventDefault();
+            e.stopPropagation();
+            showToast('YouTube website is blocked. Please use the embedded player only.', true);
+            return false;
+        }
+    }, true);
+
+    // Safe window.open override
+    const originalWindowOpen = window.open;
+    window.open = function(url, name, features) {
+        if (url && url.includes('youtube.com') && !url.includes('youtube-nocookie.com')) {
+            showToast('YouTube website is blocked. Please use the embedded player only.', true);
+            return null;
+        }
+        if (url && !url.includes('youtube.com')) {
+            window.location.href = url;
+            return null;
+        }
+        return originalWindowOpen.call(this, url, name, features);
+    };
+
+    // Initialize
+    function init() {
+        // Set up back buttons
+        document.getElementById('backFromSubject').addEventListener('click', handleBack);
+        document.getElementById('backFromPlayer').addEventListener('click', handleBack);
+        
+        // Keyboard support for back buttons
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('keypress', handleKeyPress);
+        });
+
+        // Set up event delegation
+        setupEventDelegation();
+
+        // Global search
+        globalSearch.addEventListener('input', (e) => debouncedGlobalSearch(e.target.value));
+
+        // Initial load with retry
+        withRetry(async () => {
+            if (!localStorage.getItem('studentId')) {
+                localStorage.setItem('studentId', 'STU-24-3782');
+            }
+            
+            renderSubjects();
+            renderExtraMaterials();
+        }).catch(error => {
+            console.error('Initial render error:', error);
+            showToast('Error loading content. Please refresh.', true);
+        });
+
+        // Hide all views and show home
+        views.forEach(v => v.classList.add('hidden'));
+        homeView.classList.remove('hidden', 'fade-out');
+        
+        // Set initial history state if not already set
+        if (!window.history.state) {
+            window.history.replaceState({ view: 'home' }, '', '/');
+        }
+
+        announce('Application loaded. Welcome to Studygram.');
+    }
+
+    // Start the app
+    init();
 })();
 </script>
 </body>
 </html>
-
