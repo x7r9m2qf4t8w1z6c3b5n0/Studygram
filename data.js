@@ -3,11 +3,12 @@
 
 // Extra materials (PDF only items)
 const extraMaterials = [
-    { title: "Physics Formula Sheet", pdfUrl: "https://drive.google.com/file/d/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9/view", subject: "Physics" },
-    { title: "Organic Chemistry Mindmap", pdfUrl: "https://drive.google.com/file/d/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9/view", subject: "Chemistry" },
-    { title: "Calculus Cheat Sheet", pdfUrl: "https://drive.google.com/file/d/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9/view", subject: "Mathematics" },
-    { title: "Periodic Table Summary", pdfUrl: "https://drive.google.com/file/d/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9/view", subject: "Chemistry" },
-    { title: "Vector Analysis Notes", pdfUrl: "https://drive.google.com/file/d/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9/view", subject: "Physics" }
+    { title: "রাসায়নিক পরিবর্তন (Practice Sheet)", pdfUrl: "https://drive.google.com/file/d/143KDS1k5hgA_aiVfjgnax3969364Bsxn/view", subject: "Chemistry" },
+    { title: "রাসায়নিক পরিবর্তন (Solution Sheet)", pdfUrl: "https://drive.google.com/file/d/1E7mnYZghOXWhGlV1QtbY20LccThmp720/view", subject: "Chemistry" },
+    { title: "সরলরেখা (Practice Sheet)", pdfUrl: "https://drive.google.com/file/d/143KDS1k5hgA_aiVfjgnax3969364Bsxn/view", subject: "Mathematics" },
+    { title: "সরলরেখা (Solution Sheet)", pdfUrl: "https://drive.google.com/file/d/1E7mnYZghOXWhGlV1QtbY20LccThmp720/view", subject: "Mathematics" },
+    { title: "ভেক্টর (Practice Sheet)", pdfUrl: "https://drive.google.com/file/d/1fW5COMCOS4E171Xg0sPrKetusN6acz5j/view", subject: "Physics" },
+    { title: "ভেক্টর (Solution Sheet)", pdfUrl: "https://drive.google.com/file/d/1nzWXum-E_2AWiY3OyttHtbZTtMylN08h/view", subject: "Physics" },
 ];
 
 // Lecture data (videos)
@@ -54,5 +55,6 @@ console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
 
 console.log('Extra Materials:', window.extraMaterials.length);
+
 
 
