@@ -12,8 +12,9 @@ const extraMaterials = [
 
 // Lecture data (videos)
 const lectureData = [
-    { subject: "Physics First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Vector Class (Physics 1st)", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
-    { subject: "Physics First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Measurement & Error", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
+    { subject: "Physics First Paper", videoid: "zMWU70G9d50", videotitle: "নিউটনীয় বলবিদ্যা - ০১", videopdf: "https://drive.google.com/file/d/1AXtkdF2ey0AFz2JCtBcKNKB0F7cjPyyO/view" },
+    { subject: "Physics First Paper", videoid: "okt1XdK3Zr0", videotitle: "নিউটনীয় বলবিদ্যা - ০২", videopdf: "https://drive.google.com/file/d/1GKlJA-Qno20dPsl4__pLZJ9mHaMFDaxk/view" },
+    { subject: "Physics First Paper", videoid: "l8kqGlWhSHo", videotitle: "নিউটনীয় বলবিদ্যা - ০৩", videopdf: "https://drive.google.com/file/d/1fkEEfoZHZ-6qhGj67F6dFEM1Lhhu2sHj/view" },
     { subject: "Physics Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Current Electricity", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
     { subject: "Chemistry First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Periodic Table", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
     { subject: "Chemistry Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Organic Chemistry", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
@@ -43,3 +44,4 @@ console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
 
 console.log('Extra Materials:', window.extraMaterials.length);
+
