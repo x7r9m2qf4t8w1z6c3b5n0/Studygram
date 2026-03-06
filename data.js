@@ -14,9 +14,19 @@ const extraMaterials = [
 const lectureData = [
     { subject: "Physics First Paper", videoid: "zMWU70G9d50", videotitle: "নিউটনীয় বলবিদ্যা - ০১", videopdf: "https://drive.google.com/file/d/1AXtkdF2ey0AFz2JCtBcKNKB0F7cjPyyO/view" },
     { subject: "Physics First Paper", videoid: "okt1XdK3Zr0", videotitle: "নিউটনীয় বলবিদ্যা - ০২", videopdf: "https://drive.google.com/file/d/1GKlJA-Qno20dPsl4__pLZJ9mHaMFDaxk/view" },
-    { subject: "Physics First Paper", videoid: "l8kqGlWhSHo", videotitle: "নিউটনীয় বলবিদ্যা - ০৩", videopdf: "https://drive.google.com/file/d/1fkEEfoZHZ-6qhGj67F6dFEM1Lhhu2sHj/view" },
     { subject: "Physics Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Current Electricity", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
-    { subject: "Chemistry First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Periodic Table", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
+    { subject: "Chemistry First Paper", videoid: "tKFft9GcDCo", videotitle: "গুণগত রসায়ন - ০১", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "Xz0vtsBav8o", videotitle: "গুণগত রসায়ন - ০২", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "NKoxQtN419M", videotitle: "গুণগত রসায়ন - ০৩", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "QyXDY92wvxU", videotitle: "গুণগত রসায়ন - ০৪", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "RNBHvNHadDk", videotitle: "গুণগত রসায়ন - ০৫", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "I8oCfEIjmq0", videotitle: "গুণগত রসায়ন - ০১ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "LYLcb7Rc22g", videotitle: "গুণগত রসায়ন - ০২ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "UaRVoFNBfxw", videotitle: "গুণগত রসায়ন - ০৩ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "M2y2BRPNIaQ", videotitle: "গুণগত রসায়ন - ০৪ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "EjgO_wpze00", videotitle: "গুণগত রসায়ন - ০৫ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "VHQUizzQyek", videotitle: "গুণগত রসায়ন - ০৬ (Sanjay Chakraborty)", videopdf: "" },
+    { subject: "Chemistry First Paper", videoid: "LMpF0XlG7Tc", videotitle: "গুণগত রসায়ন - ০৭ (Sanjay Chakraborty)", videopdf: "" },
     { subject: "Chemistry Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Organic Chemistry", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
     { subject: "Mathematics First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Differentiation", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
     { subject: "Mathematics Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Integration", videopdf: "https://drive.google.com/drive/folders/1u6tNg26MhpnOBFhR817tI7tFq2m2xt-9" },
@@ -44,4 +54,5 @@ console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
 
 console.log('Extra Materials:', window.extraMaterials.length);
+
 
