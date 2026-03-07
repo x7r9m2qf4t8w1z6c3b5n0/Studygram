@@ -18,11 +18,12 @@ const lectureData = [
     { subject: "Chemistry First Paper", videoid: "EjgO_wpze00", videotitle: "গুণগত রসায়ন - ০৫ (Sanjay Chakraborty)" },
     { subject: "Chemistry First Paper", videoid: "VHQUizzQyek", videotitle: "গুণগত রসায়ন - ০৬ (Sanjay Chakraborty)" },
     { subject: "Chemistry First Paper", videoid: "LMpF0XlG7Tc", videotitle: "গুণগত রসায়ন - ০৭ (Sanjay Chakraborty)" },
-    { subject: "Chemistry Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Organic Chemistry" },
-    { subject: "Mathematics First Paper", videoid: "pNJpXfJu2vQ", videotitle: "Differentiation" },
-    { subject: "Mathematics Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Integration" },
-    { subject: "Physics Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Magnetic Effect" },
-    { subject: "Chemistry Second Paper", videoid: "pNJpXfJu2vQ", videotitle: "Electrochemistry" }
+    { subject: "Chemistry Second Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 1" },
+    { subject: "Mathematics First Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 2" },
+    { subject: "Mathematics Second Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 3" },
+    { subject: "Physics Second Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 4" },
+    { subject: "Chemistry Second Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 5" },
+    { subject: "English Second Paper", videoid: "4Nyc75xyzHc", videotitle: "Demo 6" },    
 ];
 
 // Subject images mapping
@@ -43,5 +44,6 @@ window.subjectImage = subjectImage;
 // Optional: Log to confirm loading
 console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
+
 
 
