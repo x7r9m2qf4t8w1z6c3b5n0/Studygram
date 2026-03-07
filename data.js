@@ -33,7 +33,7 @@ const subjectImage = {
     "Chemistry Second Paper": "chem2.png",
     "Mathematics First Paper": "math1.png",
     "Mathematics Second Paper": "math2.png"
-    "English Second Paper": "eng2.png"
+    "English Second Paper": "eng2.png",
 };
 
 // Explicitly attach to window object for global access
@@ -43,3 +43,4 @@ window.subjectImage = subjectImage;
 // Optional: Log to confirm loading
 console.log('data.js loaded successfully');
 console.log('Lectures:', window.lectureData.length);
+
